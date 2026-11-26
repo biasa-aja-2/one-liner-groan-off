@@ -2,6 +2,10 @@
 
 Writes one original one-line dad joke to /output/entry.txt.
 Pure stdlib only (os, sys).
+
+The groan lands on one double meaning: the ocean, made of liquid, is
+short on "liquid assets" — the banker's term for ready cash. Setup and
+punchline sit inside a single line; the pun hits at the very last words.
 """
 
 import os
@@ -41,6 +45,10 @@ def main():
     text = raw.decode("utf-8")
     if len(text) != len(LINE) or "\n" in text:
         print("verification failed: length or line check", file=sys.stderr)
+        return 1
+    if text.strip() != LINE or text != text.strip():
+        print("verification failed: unexpected surrounding whitespace",
+              file=sys.stderr)
         return 1
 
     print("wrote %s (%d chars)" % (path, len(text)))
